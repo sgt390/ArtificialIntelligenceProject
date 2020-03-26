@@ -8,7 +8,7 @@ matplotlib==3.2.1
 networkx==2.4
 numpy==1.18.2
 pandas==1.0.3
-plotting==0.1.0
+plotting
 pyglet==1.5.0
 pyparsing==2.4.6
 python-dateutil==2.8.1
