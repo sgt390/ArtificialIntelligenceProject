@@ -1,41 +1,44 @@
+import random
 import numpy as np
-
-
+from itertools import count
 INITIAL_STATE = 0
 
 
-class AgentQ:
+class Agent:
     def __init__(self, env, gamma):
         self.env = env
         self.Q = np.array([{a: 0 for a in env.get_actions(s)[0]} for s in env.get_states()])
         self.gamma = gamma
 
-    def qlearning(self, exploit):
-        state = INITIAL_STATE
-        while True:
-            actions, over = self.env.get_actions(state)
-            if over:
+    def _qlearning(self, exploit, random_start):
+        state = self.env.random_state() if random_start else INITIAL_STATE
+        for i in count():
+            actions, done = self.env.get_actions(state)
+            if done:
                 break
-            action = argmax_dict(self.Q[state]) if exploit else random_action(actions)
+            exp = np.random.uniform(0, 1)
+            action = argmax_dict(self.Q[state]) if exp < exploit else random_action(actions)
             new_state = self.env.execute(state, action)
             reward = self.env.reward(new_state)
             self.Q[state][action] = reward + self.gamma * np.max([self.Q[new_state][a] for a in self.Q[new_state]])
             state = new_state
 
-    def learn(self, epochs, swap):
-        exploit = False
+    def learn(self, epochs, exploit, random_start=False):
         for x in range(epochs):
-            if x == swap:
-                exploit = True
-            self.qlearning(exploit)
+            self._qlearning(exploit, random_start)
 
     def policy(self):
         return np.array([argmax_dict(actions) for actions in self.Q]).reshape(self.env.shape())
 
 
+# Extract a random action from an action container
 def random_action(actions):
-    return actions[np.random.randint(actions.size)]
+    return random.sample(actions, 1)[0]
 
 
 def argmax_dict(d):
-    return [x for x, v in d.items() if v == max(d.values())][0]
+    try:
+        res = [x for x, v in d.items() if v == max(d.values())][0]
+    except IndexError:
+        res = []
+    return res
