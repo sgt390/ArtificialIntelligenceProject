@@ -1,3 +1,5 @@
+# Reinforcement learning project
+*Artificial Intelligence, Padua University, 2019/2020*
 Clean install:
 New virtual environment
 ```shell
