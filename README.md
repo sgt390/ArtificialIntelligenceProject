@@ -8,3 +8,7 @@ Install requirements (in virtual environment)
 ```shell
 pip install -r requirements.txt
 ```
+Test the application (index.py contains the settings):
+```shell
+python index.py
+```
