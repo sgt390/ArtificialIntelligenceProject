@@ -6,17 +6,17 @@ from graphics import draw
 
 
 # env.print_rewards()
-height = 6
-width = 7
+height = 30
+width = 40
 
-epochs = [1]
-random_start = [True, True, True, True]
+epochs = [128, 256]
+random_start = [True, True]
 components = {}
 
 for epoch, rs in zip(epochs, random_start):
     components[f'epochs:{epoch}-randstart:{rs}'] = []
-    exploit = 0
-    for _ in tqdm(range(5)):
+    exploit = 0.05
+    for _ in tqdm(range(10)):
         env = Environment(height, width)
         agent = Agent(env=env, gamma=0.9)
         agent.learn(epochs=epoch, exploit=exploit,  random_start=rs)
