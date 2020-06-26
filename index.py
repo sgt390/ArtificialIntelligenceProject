@@ -9,16 +9,18 @@ from graphics import draw
 height = 30
 width = 40
 
-epochs = [128, 256]
-random_start = [True, True]
+epochs = [256]
+random_start = [True]
+repetitions = 1
+
 components = {}
 
 for epoch, rs in zip(epochs, random_start):
     components[f'epochs:{epoch}-randstart:{rs}'] = []
     exploit = 0.05
-    for _ in tqdm(range(10)):
+    for _ in tqdm(range(repetitions)):  # execute the algorithm multiple times just for experimenting it
         env = Environment(height, width)
-        agent = Agent(env=env, gamma=0.9)
+        agent = Agent(env=env, discount=0.9)
         agent.learn(epochs=epoch, exploit=exploit,  random_start=rs)
         policy = agent.policy()
         components[f'epochs:{epoch}-randstart:{rs}'].append(connected_components(policy))

@@ -233,9 +233,3 @@ def draw(env, policy):
         draw_move(move)
     pen._update()  # Activate the screen (for instant drawing)
     turtle.done()
-
-
-# Example
-if __name__ == '__main__':
-    acts = [{2, 3} for x in range(30)]
-    draw(10, 3, acts, [])

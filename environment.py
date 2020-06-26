@@ -13,6 +13,7 @@ ACTIONS:
     stay: 4
 """
 
+
 class Environment:
     def __init__(self, x=5, y=5):
         self.x_goal = randint(x)
