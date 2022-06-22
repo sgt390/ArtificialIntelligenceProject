@@ -6,7 +6,7 @@ gym==0.17.1
 kiwisolver==1.1.0
 matplotlib==3.2.1
 networkx==2.4
-numpy==1.18.2
+numpy==1.22.0
 pandas==1.0.3
 plotting
 pyglet==1.5.0
